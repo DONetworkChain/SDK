@@ -1,9 +1,9 @@
 #!/bin/bash
 
 SHDIR="$( cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd )"
-PROTODIR=${SHDIR}/../proto/src
+PROTODIR=${SHDIR}/../src/proto/src
 PROTOC=${SHDIR}/protoc/protoc
-OUTDIR=${SHDIR}/../proto/
+OUTDIR=${SHDIR}/../src/proto/
 
 for proto in `ls $PROTODIR`
 do
