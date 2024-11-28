@@ -1,0 +1,97 @@
+[
+{
+  "directory": "/home/lyw/tfs_sdk/rpc_test/src",
+  "command": "/usr/bin/c++ -DTFS_SDK_VERSION=0.1.0 -Dtfs_sdk_EXPORTS -I/home/lyw/tfs_sdk/src/. -I/home/lyw/tfs_sdk/lib/linux/include -I/home/lyw/tfs_sdk/src/envelop/. -I/home/lyw/tfs_sdk/src/proto/. -I/home/lyw/tfs_sdk/src/sig/. -fPIC -o CMakeFiles/tfs_sdk.dir/interface.cpp.o -c /home/lyw/tfs_sdk/src/interface.cpp",
+  "file": "/home/lyw/tfs_sdk/src/interface.cpp"
+},
+{
+  "directory": "/home/lyw/tfs_sdk/rpc_test/src/envelop",
+  "command": "/usr/bin/c++  -I/home/lyw/tfs_sdk/cryptopp -I/home/lyw/tfs_sdk/src/envelop/. -I/home/lyw/tfs_sdk/lib/linux/include -fPIC -o CMakeFiles/envelop.dir/base58.cpp.o -c /home/lyw/tfs_sdk/src/envelop/base58.cpp",
+  "file": "/home/lyw/tfs_sdk/src/envelop/base58.cpp"
+},
+{
+  "directory": "/home/lyw/tfs_sdk/rpc_test/src/envelop",
+  "command": "/usr/bin/c++  -I/home/lyw/tfs_sdk/cryptopp -I/home/lyw/tfs_sdk/src/envelop/. -I/home/lyw/tfs_sdk/lib/linux/include -fPIC -o CMakeFiles/envelop.dir/base64.cpp.o -c /home/lyw/tfs_sdk/src/envelop/base64.cpp",
+  "file": "/home/lyw/tfs_sdk/src/envelop/base64.cpp"
+},
+{
+  "directory": "/home/lyw/tfs_sdk/rpc_test/src/envelop",
+  "command": "/usr/bin/c++  -I/home/lyw/tfs_sdk/cryptopp -I/home/lyw/tfs_sdk/src/envelop/. -I/home/lyw/tfs_sdk/lib/linux/include -fPIC -o CMakeFiles/envelop.dir/bip39.cpp.o -c /home/lyw/tfs_sdk/src/envelop/bip39.cpp",
+  "file": "/home/lyw/tfs_sdk/src/envelop/bip39.cpp"
+},
+{
+  "directory": "/home/lyw/tfs_sdk/rpc_test/src/envelop",
+  "command": "/usr/bin/c++  -I/home/lyw/tfs_sdk/cryptopp -I/home/lyw/tfs_sdk/src/envelop/. -I/home/lyw/tfs_sdk/lib/linux/include -fPIC -o CMakeFiles/envelop.dir/Envelop.cpp.o -c /home/lyw/tfs_sdk/src/envelop/Envelop.cpp",
+  "file": "/home/lyw/tfs_sdk/src/envelop/Envelop.cpp"
+},
+{
+  "directory": "/home/lyw/tfs_sdk/rpc_test/src/envelop",
+  "command": "/usr/bin/c++  -I/home/lyw/tfs_sdk/cryptopp -I/home/lyw/tfs_sdk/src/envelop/. -I/home/lyw/tfs_sdk/lib/linux/include -fPIC -o CMakeFiles/envelop.dir/hexcode.cpp.o -c /home/lyw/tfs_sdk/src/envelop/hexcode.cpp",
+  "file": "/home/lyw/tfs_sdk/src/envelop/hexcode.cpp"
+},
+{
+  "directory": "/home/lyw/tfs_sdk/rpc_test/src/envelop",
+  "command": "/usr/bin/c++  -I/home/lyw/tfs_sdk/cryptopp -I/home/lyw/tfs_sdk/src/envelop/. -I/home/lyw/tfs_sdk/lib/linux/include -fPIC -o CMakeFiles/envelop.dir/ripemd160.cpp.o -c /home/lyw/tfs_sdk/src/envelop/ripemd160.cpp",
+  "file": "/home/lyw/tfs_sdk/src/envelop/ripemd160.cpp"
+},
+{
+  "directory": "/home/lyw/tfs_sdk/rpc_test/src/envelop",
+  "command": "/usr/bin/c++  -I/home/lyw/tfs_sdk/cryptopp -I/home/lyw/tfs_sdk/src/envelop/. -I/home/lyw/tfs_sdk/lib/linux/include -fPIC -o CMakeFiles/envelop.dir/RSA_TEXT.cpp.o -c /home/lyw/tfs_sdk/src/envelop/RSA_TEXT.cpp",
+  "file": "/home/lyw/tfs_sdk/src/envelop/RSA_TEXT.cpp"
+},
+{
+  "directory": "/home/lyw/tfs_sdk/rpc_test/src/envelop",
+  "command": "/usr/bin/c++  -I/home/lyw/tfs_sdk/cryptopp -I/home/lyw/tfs_sdk/src/envelop/. -I/home/lyw/tfs_sdk/lib/linux/include -fPIC -o CMakeFiles/envelop.dir/sha2.cpp.o -c /home/lyw/tfs_sdk/src/envelop/sha2.cpp",
+  "file": "/home/lyw/tfs_sdk/src/envelop/sha2.cpp"
+},
+{
+  "directory": "/home/lyw/tfs_sdk/rpc_test/src/envelop",
+  "command": "/usr/bin/c++  -I/home/lyw/tfs_sdk/cryptopp -I/home/lyw/tfs_sdk/src/envelop/. -I/home/lyw/tfs_sdk/lib/linux/include -fPIC -o CMakeFiles/envelop.dir/tx.cpp.o -c /home/lyw/tfs_sdk/src/envelop/tx.cpp",
+  "file": "/home/lyw/tfs_sdk/src/envelop/tx.cpp"
+},
+{
+  "directory": "/home/lyw/tfs_sdk/rpc_test/src/envelop",
+  "command": "/usr/bin/c++  -I/home/lyw/tfs_sdk/cryptopp -I/home/lyw/tfs_sdk/src/envelop/. -I/home/lyw/tfs_sdk/lib/linux/include -fPIC -o CMakeFiles/envelop.dir/util2.cpp.o -c /home/lyw/tfs_sdk/src/envelop/util2.cpp",
+  "file": "/home/lyw/tfs_sdk/src/envelop/util2.cpp"
+},
+{
+  "directory": "/home/lyw/tfs_sdk/rpc_test/src/envelop",
+  "command": "/usr/bin/c++  -I/home/lyw/tfs_sdk/cryptopp -I/home/lyw/tfs_sdk/src/envelop/. -I/home/lyw/tfs_sdk/lib/linux/include -fPIC -o CMakeFiles/envelop.dir/evmc.cpp.o -c /home/lyw/tfs_sdk/src/envelop/evmc.cpp",
+  "file": "/home/lyw/tfs_sdk/src/envelop/evmc.cpp"
+},
+{
+  "directory": "/home/lyw/tfs_sdk/rpc_test/src/envelop",
+  "command": "/usr/bin/c++  -I/home/lyw/tfs_sdk/cryptopp -I/home/lyw/tfs_sdk/src/envelop/. -I/home/lyw/tfs_sdk/lib/linux/include -fPIC -o CMakeFiles/envelop.dir/keccak256.cpp.o -c /home/lyw/tfs_sdk/src/envelop/keccak256.cpp",
+  "file": "/home/lyw/tfs_sdk/src/envelop/keccak256.cpp"
+},
+{
+  "directory": "/home/lyw/tfs_sdk/rpc_test/src/proto",
+  "command": "/usr/bin/c++  -I/home/lyw/tfs_sdk/src/proto/. -I/home/lyw/tfs_sdk/lib/linux/include -fPIC -o CMakeFiles/proto.dir/ca_protomsg.pb.cc.o -c /home/lyw/tfs_sdk/src/proto/ca_protomsg.pb.cc",
+  "file": "/home/lyw/tfs_sdk/src/proto/ca_protomsg.pb.cc"
+},
+{
+  "directory": "/home/lyw/tfs_sdk/rpc_test/src/proto",
+  "command": "/usr/bin/c++  -I/home/lyw/tfs_sdk/src/proto/. -I/home/lyw/tfs_sdk/lib/linux/include -fPIC -o CMakeFiles/proto.dir/sign.pb.cc.o -c /home/lyw/tfs_sdk/src/proto/sign.pb.cc",
+  "file": "/home/lyw/tfs_sdk/src/proto/sign.pb.cc"
+},
+{
+  "directory": "/home/lyw/tfs_sdk/rpc_test/src/proto",
+  "command": "/usr/bin/c++  -I/home/lyw/tfs_sdk/src/proto/. -I/home/lyw/tfs_sdk/lib/linux/include -fPIC -o CMakeFiles/proto.dir/transaction.pb.cc.o -c /home/lyw/tfs_sdk/src/proto/transaction.pb.cc",
+  "file": "/home/lyw/tfs_sdk/src/proto/transaction.pb.cc"
+},
+{
+  "directory": "/home/lyw/tfs_sdk/rpc_test/src/sig",
+  "command": "/usr/bin/c++  -I/home/lyw/tfs_sdk/src/sig/. -I/home/lyw/tfs_sdk/src/envelop/. -I/home/lyw/tfs_sdk/src/proto/. -I/home/lyw/tfs_sdk/lib/linux/include -fPIC -o CMakeFiles/sig.dir/sig.cpp.o -c /home/lyw/tfs_sdk/src/sig/sig.cpp",
+  "file": "/home/lyw/tfs_sdk/src/sig/sig.cpp"
+},
+{
+  "directory": "/home/lyw/tfs_sdk/rpc_test/src/sig",
+  "command": "/usr/bin/c++  -I/home/lyw/tfs_sdk/src/sig/. -I/home/lyw/tfs_sdk/src/envelop/. -I/home/lyw/tfs_sdk/src/proto/. -I/home/lyw/tfs_sdk/lib/linux/include -fPIC -o CMakeFiles/sig.dir/sigTx.cpp.o -c /home/lyw/tfs_sdk/src/sig/sigTx.cpp",
+  "file": "/home/lyw/tfs_sdk/src/sig/sigTx.cpp"
+},
+{
+  "directory": "/home/lyw/tfs_sdk/rpc_test/rpc_test",
+  "command": "/usr/bin/c++ -DRPC_TEST_VERSION=0.1.0 -I/home/lyw/tfs_sdk/src -I/home/lyw/tfs_sdk/src/envelop -I/home/lyw/tfs_sdk/src/proto -I/home/lyw/tfs_sdk/src/sig -I/home/lyw/tfs_sdk/cryptopp -I/home/lyw/tfs_sdk/lib/linux/include -I/home/lyw/tfs_sdk/src/.  -o CMakeFiles/rpc_test.dir/main.cpp.o -c /home/lyw/tfs_sdk/rpc_test/main.cpp",
+  "file": "/home/lyw/tfs_sdk/rpc_test/main.cpp"
+}
+]

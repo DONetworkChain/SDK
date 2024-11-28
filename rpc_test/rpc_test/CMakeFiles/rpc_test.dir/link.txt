@@ -1,0 +1,1 @@
+/usr/bin/c++ -rdynamic CMakeFiles/rpc_test.dir/main.cpp.o -o ../bin/rpc_test_executable  -Wl,-rpath,/home/lyw/tfs_sdk/rpc_test/lib ../lib/libtfs_sdk_v0.1.0.so ../../lib/linux/libssl.a ../../lib/linux/libcrypto.a ../../lib/linux/libprotobuf.a ../../lib/linux/libcryptopp.a -lpthread -ldl 

@@ -1,0 +1,530 @@
+#include "base64.h"
+#include "debug.h"
+#include "sig.h"
+#include "tx.h"
+#include "new_tx.h"
+#include <cstdlib>
+#include <exception>
+#include <iostream>
+#include <json.hpp>
+#include <sstream>
+#include <fstream>
+#include <httplib.h>
+#include "../src/interface.h"
+#include <string>
+#include <tuple>
+#include "Mac.h"
+std::string readAllFile(const std::string & path){
+   std::ifstream fin(path);   // filename: xly2016I.txt
+    std::stringstream buffer;            // stringstream object
+    buffer << fin.rdbuf();          // read file content in stringstream object
+    std::string str(buffer.str());       // store file content in a string
+    return str;
+
+}
+
+
+// {
+//         "tfsrpc":"0.0.1",
+//         "method":"deploycontract",
+//         "params":["addr","contracttype",{},"contract","data","pubstr"]
+//     },
+void d_test(long long pkey){
+    deploy_contract_req req;
+    req.addr="1DeF2D7B559Cc1b4E34D9Fd9cB7B59173AfE56D5";
+    std::string cont="60806040526040518060400160405280601381526020017f536f6c6964697479206279204578616d706c6500000000000000000000000000815250600390816200004a919062000324565b506040518060400160405280600781526020017f534f4c42594558000000000000000000000000000000000000000000000000008152506004908162000091919062000324565b50601260055f6101000a81548160ff021916908360ff160217905550348015620000b9575f80fd5b5062000408565b5f81519050919050565b7f4e487b71000000000000000000000000000000000000000000000000000000005f52604160045260245ffd5b7f4e487b71000000000000000000000000000000000000000000000000000000005f52602260045260245ffd5b5f60028204905060018216806200013c57607f821691505b602082108103620001525762000151620000f7565b5b50919050565b5f819050815f5260205f209050919050565b5f6020601f8301049050919050565b5f82821b905092915050565b5f60088302620001b67fffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff8262000179565b620001c2868362000179565b95508019841693508086168417925050509392505050565b5f819050919050565b5f819050919050565b5f6200020c620002066200020084620001da565b620001e3565b620001da565b9050919050565b5f819050919050565b6200022783620001ec565b6200023f620002368262000213565b84845462000185565b825550505050565b5f90565b6200025562000247565b620002628184846200021c565b505050565b5b8181101562000289576200027d5f826200024b565b60018101905062000268565b5050565b601f821115620002d857620002a28162000158565b620002ad846200016a565b81016020851015620002bd578190505b620002d5620002cc856200016a565b83018262000267565b50505b505050565b5f82821c905092915050565b5f620002fa5f1984600802620002dd565b1980831691505092915050565b5f620003148383620002e9565b9150826002028217905092915050565b6200032f82620000c0565b67ffffffffffffffff8111156200034b576200034a620000ca565b5b62000357825462000124565b620003648282856200028d565b5f60209050601f8311600181146200039a575f841562000385578287015190505b62000391858262000307565b86555062000400565b601f198416620003aa8662000158565b5f5b82811015620003d357848901518255600182019150602085019450602081019050620003ac565b86831015620003f35784890151620003ef601f891682620002e9565b8355505b6001600288020188555050505b505050505050565b610d7980620004165f395ff3fe60806040526004361061009b575f3560e01c806342966c681161006357806342966c681461019557806370a08231146101bd57806395d89b41146101f9578063a0712d6814610223578063a9059cbb1461023f578063dd62ed3e1461027b5761009b565b806306fdde031461009f578063095ea7b3146100c957806318160ddd1461010557806323b872dd1461012f578063313ce5671461016b575b5f80fd5b3480156100aa575f80fd5b506100b36102b7565b6040516100c091906109f1565b60405180910390f35b3480156100d4575f80fd5b506100ef60048036038101906100ea9190610aa2565b610343565b6040516100fc9190610afa565b60405180910390f35b348015610110575f80fd5b50610119610430565b6040516101269190610b22565b60405180910390f35b34801561013a575f80fd5b5061015560048036038101906101509190610b3b565b610435565b6040516101629190610afa565b60405180910390f35b348015610176575f80fd5b5061017f6105da565b60405161018c9190610ba6565b60405180910390f35b3480156101a0575f80fd5b506101bb60048036038101906101b69190610bbf565b6105ec565b005b3480156101c8575f80fd5b506101e360048036038101906101de9190610bea565b6106be565b6040516101f09190610b22565b60405180910390f35b348015610204575f80fd5b5061020d6106d3565b60405161021a91906109f1565b60405180910390f35b61023d60048036038101906102389190610bbf565b61075f565b005b34801561024a575f80fd5b5061026560048036038101906102609190610aa2565b610831565b6040516102729190610afa565b60405180910390f35b348015610286575f80fd5b506102a1600480360381019061029c9190610c15565b610947565b6040516102ae9190610b22565b60405180910390f35b600380546102c490610c80565b80601f01602080910402602001604051908101604052809291908181526020018280546102f090610c80565b801561033b5780601f106103125761010080835404028352916020019161033b565b820191905f5260205f20905b81548152906001019060200180831161031e57829003601f168201915b505050505081565b5f8160025f3373ffffffffffffffffffffffffffffffffffffffff1673ffffffffffffffffffffffffffffffffffffffff1681526020019081526020015f205f8573ffffffffffffffffffffffffffffffffffffffff1673ffffffffffffffffffffffffffffffffffffffff1681526020019081526020015f20819055508273ffffffffffffffffffffffffffffffffffffffff163373ffffffffffffffffffffffffffffffffffffffff167f8c5be1e5ebec7d5bd14f71427d1e84f3dd0314c0f7b2291e5b200ac8c7c3b9258460405161041e9190610b22565b60405180910390a36001905092915050565b5f5481565b5f8160025f8673ffffffffffffffffffffffffffffffffffffffff1673ffffffffffffffffffffffffffffffffffffffff1681526020019081526020015f205f3373ffffffffffffffffffffffffffffffffffffffff1673ffffffffffffffffffffffffffffffffffffffff1681526020019081526020015f205f8282546104bd9190610cdd565b925050819055508160015f8673ffffffffffffffffffffffffffffffffffffffff1673ffffffffffffffffffffffffffffffffffffffff1681526020019081526020015f205f8282546105109190610cdd565b925050819055508160015f8573ffffffffffffffffffffffffffffffffffffffff1673ffffffffffffffffffffffffffffffffffffffff1681526020019081526020015f205f8282546105639190610d10565b925050819055508273ffffffffffffffffffffffffffffffffffffffff168473ffffffffffffffffffffffffffffffffffffffff167fddf252ad1be2c89b69c2b068fc378daa952ba7f163c4a11628f55a4df523b3ef846040516105c79190610b22565b60405180910390a3600190509392505050565b60055f9054906101000a900460ff1681565b8060015f3373ffffffffffffffffffffffffffffffffffffffff1673ffffffffffffffffffffffffffffffffffffffff1681526020019081526020015f205f8282546106389190610cdd565b92505081905550805f8082825461064f9190610cdd565b925050819055505f73ffffffffffffffffffffffffffffffffffffffff163373ffffffffffffffffffffffffffffffffffffffff167fddf252ad1be2c89b69c2b068fc378daa952ba7f163c4a11628f55a4df523b3ef836040516106b39190610b22565b60405180910390a350565b6001602052805f5260405f205f915090505481565b600480546106e090610c80565b80601f016020809104026020016040519081016040528092919081815260200182805461070c90610c80565b80156107575780601f1061072e57610100808354040283529160200191610757565b820191905f5260205f20905b81548152906001019060200180831161073a57829003601f168201915b505050505081565b8060015f3373ffffffffffffffffffffffffffffffffffffffff1673ffffffffffffffffffffffffffffffffffffffff1681526020019081526020015f205f8282546107ab9190610d10565b92505081905550805f808282546107c29190610d10565b925050819055503373ffffffffffffffffffffffffffffffffffffffff165f73ffffffffffffffffffffffffffffffffffffffff167fddf252ad1be2c89b69c2b068fc378daa952ba7f163c4a11628f55a4df523b3ef836040516108269190610b22565b60405180910390a350565b5f8160015f3373ffffffffffffffffffffffffffffffffffffffff1673ffffffffffffffffffffffffffffffffffffffff1681526020019081526020015f205f82825461087e9190610cdd565b925050819055508160015f8573ffffffffffffffffffffffffffffffffffffffff1673ffffffffffffffffffffffffffffffffffffffff1681526020019081526020015f205f8282546108d19190610d10565b925050819055508273ffffffffffffffffffffffffffffffffffffffff163373ffffffffffffffffffffffffffffffffffffffff167fddf252ad1be2c89b69c2b068fc378daa952ba7f163c4a11628f55a4df523b3ef846040516109359190610b22565b60405180910390a36001905092915050565b6002602052815f5260405f20602052805f5260405f205f91509150505481565b5f81519050919050565b5f82825260208201905092915050565b5f5b8381101561099e578082015181840152602081019050610983565b5f8484015250505050565b5f601f19601f8301169050919050565b5f6109c382610967565b6109cd8185610971565b93506109dd818560208601610981565b6109e6816109a9565b840191505092915050565b5f6020820190508181035f830152610a0981846109b9565b905092915050565b5f80fd5b5f73ffffffffffffffffffffffffffffffffffffffff82169050919050565b5f610a3e82610a15565b9050919050565b610a4e81610a34565b8114610a58575f80fd5b50565b5f81359050610a6981610a45565b92915050565b5f819050919050565b610a8181610a6f565b8114610a8b575f80fd5b50565b5f81359050610a9c81610a78565b92915050565b5f8060408385031215610ab857610ab7610a11565b5b5f610ac585828601610a5b565b9250506020610ad685828601610a8e565b9150509250929050565b5f8115159050919050565b610af481610ae0565b82525050565b5f602082019050610b0d5f830184610aeb565b92915050565b610b1c81610a6f565b82525050565b5f602082019050610b355f830184610b13565b92915050565b5f805f60608486031215610b5257610b51610a11565b5b5f610b5f86828701610a5b565b9350506020610b7086828701610a5b565b9250506040610b8186828701610a8e565b9150509250925092565b5f60ff82169050919050565b610ba081610b8b565b82525050565b5f602082019050610bb95f830184610b97565b92915050565b5f60208284031215610bd457610bd3610a11565b5b5f610be184828501610a8e565b91505092915050565b5f60208284031215610bff57610bfe610a11565b5b5f610c0c84828501610a5b565b91505092915050565b5f8060408385031215610c2b57610c2a610a11565b5b5f610c3885828601610a5b565b9250506020610c4985828601610a5b565b9150509250929050565b7f4e487b71000000000000000000000000000000000000000000000000000000005f52602260045260245ffd5b5f6002820490506001821680610c9757607f821691505b602082108103610caa57610ca9610c53565b5b50919050565b7f4e487b71000000000000000000000000000000000000000000000000000000005f52601160045260245ffd5b5f610ce782610a6f565b9150610cf283610a6f565b9250828203905081811115610d0a57610d09610cb0565b5b92915050565b5f610d1a82610a6f565b9150610d2583610a6f565b9250828201905080821115610d3d57610d3c610cb0565b5b9291505056fea2646970667358221220a3e4e2f050f072eb5ffaf9b2891266e136aac7020034c02abb4a9a79d4428c8864736f6c63430008150033";
+    debugL("contract",cont);
+    debugL(cont);
+    req.contract=cont;
+    req.nContractType="0";
+    Base64 base_;
+    char * pubs=get_pubstr_base64(pkey);
+    req.pubstr=std::string(pubs);
+  
+    req.data="";
+    req.info="[]";
+
+    nlohmann::json params;
+    params.push_back("1DeF2D7B559Cc1b4E34D9Fd9cB7B59173AfE56D5");
+    params.push_back("0");
+    params.push_back("{}");
+    params.push_back(cont);
+    params.push_back("");
+    params.push_back(std::string(pubs));
+      free(pubs);
+
+    nlohmann::json bocj;
+    bocj["tfsrpc"]="0.0.1";
+    bocj["method"]="deploycontract";
+    bocj["params"]=params;
+
+    httplib::Headers headers = {
+	{ "content-type", "application/json" }
+	};
+
+     httplib::Client cli("192.168.1.141", 11190);
+    httplib::Result res = cli.Post("/tfscrpc", headers,bocj.dump(), "application/json");
+
+    if(res.error()!=httplib::Error::Success){
+         debugL("error:%s",(int)res.error());
+         return ;
+    }
+    
+    debugL(res.value().body);
+    //debugL(res.value().body);
+    nlohmann::json jbody=nlohmann::json::parse(res.value().body);
+
+    tx_ack ack;
+    std::string ackString=jbody["body"];
+    debugL(ackString);
+
+
+    
+    char *tx_body=sig_tx((long long)pkey,ackString.c_str(),ackString.size());
+    std::string tx_t(tx_body);
+    free(tx_body);
+
+
+    std::string _string_tx_obdy=R"delimiter(
+        {
+            "tfsrpc":"0.0.1",
+            "method":"sendtransation",
+            "params":[]
+        }
+        )delimiter";
+
+    nlohmann::json tx_body_json=nlohmann::json::parse(_string_tx_obdy);
+    nlohmann::json feildbody;
+    feildbody.push_back(tx_t);
+    tx_body_json["params"]=feildbody;
+    auto retv= cli.Post("/tfscrpc",headers,tx_body_json.dump(),"application/json");
+  
+    if(retv.error()!=httplib::Error::Success){
+        errorL(Sutil::Format("httplib error:%s", (int)retv.error()));
+        return ;
+    }
+    debugL(retv.value().body);
+    return ;
+
+
+}
+
+
+// {
+//         "tfsrpc":"0.0.1",
+//         "method":"callcontract",
+//         "params":["addr","deployer","deployeutxo","args","pubstr","tip","money"]
+//     }, 
+void d_call_test(long long pkey){
+    call_contract_req req;
+    req.addr="1DeF2D7B559Cc1b4E34D9Fd9cB7B59173AfE56D5";
+    req.args="0xa0712d680000000000000000000000000000000000000000000000000000000000002710";
+    req.deployer="1DeF2D7B559Cc1b4E34D9Fd9cB7B59173AfE56D5";
+    req.deployutxo="ecc0d545339bb66df5bfc45029998d93f19b14a915ae37ca511906f7a52a1419";
+    req.money="0";
+    req.Tip="0";
+    char * pubs=get_pubstr_base64(pkey);
+    req.pubstr=std::string(pubs);
+
+    nlohmann::json params;
+    params.push_back("1DeF2D7B559Cc1b4E34D9Fd9cB7B59173AfE56D5");
+    params.push_back("1DeF2D7B559Cc1b4E34D9Fd9cB7B59173AfE56D5");
+    params.push_back("a7db161a83e40eb264d60e0e113065d29b8c14a09da1cfebc70b02a1954fae15");
+    params.push_back("0xa0712d680000000000000000000000000000000000000000000000000000000000002710");
+    params.push_back(std::string(pubs));
+    params.push_back("0");
+    params.push_back("0");
+
+    free(pubs);
+
+     nlohmann::json bocj;
+    bocj["tfsrpc"]="0.0.1";
+    bocj["method"]="callcontract";
+    bocj["params"]=params;
+
+     httplib::Headers headers = {
+	{ "content-type", "application/json" }
+	};
+
+    httplib::Client cli("192.168.1.141", 11190);
+    httplib::Result res = cli.Post("/tfscrpc", headers,bocj.dump(), "application/json");
+
+    if(res.error()!=httplib::Error::Success){
+         debugL("error:%s",(int)res.error());
+         return ;
+    }
+    
+    debugL(res.value().body);
+    //debugL(res.value().body);
+    nlohmann::json jbody=nlohmann::json::parse(res.value().body);
+
+    tx_ack ack;
+    std::string ackString=jbody["body"];
+    debugL(ackString);
+
+
+    
+    char *tx_body=sig_tx((long long)pkey,ackString.c_str(),ackString.size());
+    std::string tx_t(tx_body);
+    free(tx_body);
+
+
+    std::string _string_tx_obdy=R"delimiter(
+        {
+            "tfsrpc":"0.0.1",
+            "method":"sendtransation",
+            "params":[]
+        }
+        )delimiter";
+
+    nlohmann::json tx_body_json=nlohmann::json::parse(_string_tx_obdy);
+    nlohmann::json feildbody;
+    feildbody.push_back(tx_t);
+    tx_body_json["params"]=feildbody;
+    auto retv= cli.Post("/tfscrpc",headers,tx_body_json.dump(),"application/json");
+  
+    if(retv.error()!=httplib::Error::Success){
+        errorL(Sutil::Format("httplib error:%s", (int)retv.error()));
+        return ;
+    }
+    debugL(retv.value().body);
+    return ;
+}
+
+
+
+
+void disinvest(long long pkey){
+      std::string data=R"delimiter(
+       {
+        "tfsrpc":"0.0.1",
+        "method":"disinvest",
+        "params":["1DeF2D7B559Cc1b4E34D9Fd9cB7B59173AfE56D5","1DeF2D7B559Cc1b4E34D9Fd9cB7B59173AfE56D5","448cd19a1d365e567d0dcf82347faa96d2bfb3512f97b25fd3246c1d5c339378"]
+        }
+        )delimiter";
+    debugL(data);
+     httplib::Headers headers = {
+	{ "content-type", "application/json" }
+	};
+
+    
+
+    httplib::Client cli("192.168.1.141", 11190);
+    httplib::Result res = cli.Post("/tfscrpc", headers,data, "application/json");
+
+    if(res.error()!=httplib::Error::Success){
+         debugL("error:%s",(int)res.error());
+         return ;
+    }
+    
+    debugL(res.value().body);
+    //debugL(res.value().body);
+    nlohmann::json jbody=nlohmann::json::parse(res.value().body);
+
+    tx_ack ack;
+    std::string ackString=jbody["body"];
+    debugL(ackString);
+
+
+    
+    char *tx_body=sig_tx((long long)pkey,ackString.c_str(),ackString.size());
+    std::string tx_t(tx_body);
+    free(tx_body);
+
+
+    std::string _string_tx_obdy=R"delimiter(
+        {
+            "tfsrpc":"0.0.1",
+            "method":"sendtransation",
+            "params":[]
+        }
+        )delimiter";
+
+    nlohmann::json tx_body_json=nlohmann::json::parse(_string_tx_obdy);
+    nlohmann::json feildbody;
+    feildbody.push_back(tx_t);
+    tx_body_json["params"]=feildbody;
+    auto retv= cli.Post("/tfscrpc",headers,tx_body_json.dump(),"application/json");
+  
+    if(retv.error()!=httplib::Error::Success){
+        errorL(Sutil::Format("httplib error:%s", (int)retv.error()));
+        return ;
+    }
+    debugL(retv.value().body);
+    return ;
+}
+
+void unstake(long long pkey){
+      std::string data=R"delimiter(
+       {
+        "tfsrpc":"0.0.1",
+        "method":"unstake",
+        "params":["1DeF2D7B559Cc1b4E34D9Fd9cB7B59173AfE56D5","28f9219b67cdccd37481f868abb2b40250a9b52b265438e4362507bdc544434a"]
+        }
+        )delimiter";
+    debugL(data);
+     httplib::Headers headers = {
+	{ "content-type", "application/json" }
+	};
+
+    
+
+    httplib::Client cli("192.168.1.141", 11190);
+    httplib::Result res = cli.Post("/tfscrpc", headers,data, "application/json");
+
+    if(res.error()!=httplib::Error::Success){
+         debugL("error:%s",(int)res.error());
+         return ;
+    }
+    
+    debugL(res.value().body);
+    //debugL(res.value().body);
+    nlohmann::json jbody=nlohmann::json::parse(res.value().body);
+
+    tx_ack ack;
+    std::string ackString=jbody["body"];
+    debugL(ackString);
+
+
+    
+    char *tx_body=sig_tx((long long)pkey,ackString.c_str(),ackString.size());
+    std::string tx_t(tx_body);
+    free(tx_body);
+
+
+    std::string _string_tx_obdy=R"delimiter(
+        {
+            "tfsrpc":"0.0.1",
+            "method":"sendtransation",
+            "params":[]
+        }
+        )delimiter";
+
+    nlohmann::json tx_body_json=nlohmann::json::parse(_string_tx_obdy);
+    nlohmann::json feildbody;
+    feildbody.push_back(tx_t);
+    tx_body_json["params"]=feildbody;
+    auto retv= cli.Post("/tfscrpc",headers,tx_body_json.dump(),"application/json");
+  
+    if(retv.error()!=httplib::Error::Success){
+        errorL(Sutil::Format("httplib error:%s", (int)retv.error()));
+        return ;
+    }
+    debugL(retv.value().body);
+    return ;
+}
+
+void invest(long long pkey){
+    std::string data=R"delimiter(
+        {
+            "tfsrpc":"0.0.1",
+            "method":"invest",
+            "params":["1DeF2D7B559Cc1b4E34D9Fd9cB7B59173AfE56D5","1DeF2D7B559Cc1b4E34D9Fd9cB7B59173AfE56D5","25000"]
+        }
+        )delimiter";
+    debugL(data);
+     httplib::Headers headers = {
+	{ "content-type", "application/json" }
+	};
+
+    
+
+    httplib::Client cli("192.168.1.141", 11190);
+    httplib::Result res = cli.Post("/tfscrpc", headers,data, "application/json");
+
+    if(res.error()!=httplib::Error::Success){
+         debugL("error:%s",(int)res.error());
+         return ;
+    }
+    
+    debugL(res.value().body);
+    //debugL(res.value().body);
+    nlohmann::json jbody=nlohmann::json::parse(res.value().body);
+
+    tx_ack ack;
+    std::string ackString=jbody["body"];
+    debugL(ackString);
+
+
+    
+    char *tx_body=sig_tx((long long)pkey,ackString.c_str(),ackString.size());
+    std::string tx_t(tx_body);
+    free(tx_body);
+
+
+    std::string _string_tx_obdy=R"delimiter(
+        {
+            "tfsrpc":"0.0.1",
+            "method":"sendtransation",
+            "params":[]
+        }
+        )delimiter";
+
+    nlohmann::json tx_body_json=nlohmann::json::parse(_string_tx_obdy);
+    nlohmann::json feildbody;
+    feildbody.push_back(tx_t);
+    tx_body_json["params"]=feildbody;
+    auto retv= cli.Post("/tfscrpc",headers,tx_body_json.dump(),"application/json");
+  
+    if(retv.error()!=httplib::Error::Success){
+        errorL(Sutil::Format("httplib error:%s", (int)retv.error()));
+        return ;
+    }
+    debugL(retv.value().body);
+    return ;
+}
+
+
+void stake(long long pkey){
+    std::string data=R"delimiter(
+        {
+            "tfsrpc":"0.0.1",
+            "method":"stake",
+            "params":["1DeF2D7B559Cc1b4E34D9Fd9cB7B59173AfE56D5","20000"]
+        }
+        )delimiter";
+    debugL(data);
+     httplib::Headers headers = {
+	{ "content-type", "application/json" }
+	};
+
+    
+
+    httplib::Client cli("192.168.1.141", 11190);
+    httplib::Result res = cli.Post("/tfscrpc", headers,data, "application/json");
+
+    if(res.error()!=httplib::Error::Success){
+         debugL("error:%s",(int)res.error());
+         return ;
+    }
+    
+    debugL(res.value().body);
+    //debugL(res.value().body);
+    nlohmann::json jbody=nlohmann::json::parse(res.value().body);
+
+    tx_ack ack;
+    std::string ackString=jbody["body"];
+    debugL(ackString);
+
+
+    
+    char *tx_body=sig_tx((long long)pkey,ackString.c_str(),ackString.size());
+    std::string tx_t(tx_body);
+    free(tx_body);
+
+
+    std::string _string_tx_obdy=R"delimiter(
+        {
+            "tfsrpc":"0.0.1",
+            "method":"sendtransation",
+            "params":[]
+        }
+        )delimiter";
+
+    nlohmann::json tx_body_json=nlohmann::json::parse(_string_tx_obdy);
+    nlohmann::json feildbody;
+    feildbody.push_back(tx_t);
+    tx_body_json["params"]=feildbody;
+    auto retv= cli.Post("/tfscrpc",headers,tx_body_json.dump(),"application/json");
+  
+    if(retv.error()!=httplib::Error::Success){
+        errorL(Sutil::Format("httplib error:%s", (int)retv.error()));
+        return ;
+    }
+    debugL(retv.value().body);
+    return ;
+}
+
+void transaction(long long pkey){
+    
+    std::string data=R"delimiter(
+        {
+            "tfsrpc":"0.0.1",
+            "method":"transaction",
+            "params":["1DeF2D7B559Cc1b4E34D9Fd9cB7B59173AfE56D5","3F5C04EFf4935186620a692C7a6eBC0cBBe6Ca1D","1.0"]
+        }
+        )delimiter";
+    debugL(data);
+     httplib::Headers headers = {
+	{ "content-type", "application/json" }
+	};
+
+    
+
+    httplib::Client cli("192.168.1.141", 11190);
+    httplib::Result res = cli.Post("/tfscrpc", headers,data, "application/json");
+
+    if(res.error()!=httplib::Error::Success){
+         debugL("error:%s",(int)res.error());
+         return ;
+    }
+    
+    
+    //debugL(res.value().body);
+    nlohmann::json jbody=nlohmann::json::parse(res.value().body);
+
+    tx_ack ack;
+    std::string ackString=jbody["body"];
+    debugL(ackString);
+
+
+    
+    char *tx_body=sig_tx((long long)pkey,ackString.c_str(),ackString.size());
+    std::string tx_t(tx_body);
+    free(tx_body);
+
+
+    std::string _string_tx_obdy=R"delimiter(
+        {
+            "tfsrpc":"0.0.1",
+            "method":"sendtransation",
+            "params":[]
+        }
+        )delimiter";
+
+    nlohmann::json tx_body_json=nlohmann::json::parse(_string_tx_obdy);
+    nlohmann::json feildbody;
+    feildbody.push_back(tx_t);
+    tx_body_json["params"]=feildbody;
+    auto retv= cli.Post("/tfscrpc",headers,tx_body_json.dump(),"application/json");
+  
+    if(retv.error()!=httplib::Error::Success){
+        errorL(Sutil::Format("httplib error:%s", (int)retv.error()));
+        return ;
+    }
+    debugL(retv.value().body);
+    return ;
+}
+
+
+//28f9219b67cdccd37481f868abb2b40250a9b52b265438e4362507bdc544434a
+
+
+
+
+// int main(){
+//     const std::string pkey_str="LS0tLS1CRUdJTiBQUklWQVRFIEtFWS0tLS0tCk1DNENBUUF3QlFZREsyVndCQ0lFSUxkbGhpUkxkdDFiLy9oOUNLMm9XNnlEcENTMFNrNDBNaWYwckpHQWs2WDIKLS0tLS1FTkQgUFJJVkFURSBLRVktLS0tLQo=";
+//     long long pkey=import_base64_prikey_handler(pkey_str.c_str(),pkey_str.size());
+//     char * addr=get_addr(pkey);
+//     debugL(addr);
+//     free(addr);
+//     unstake(pkey);
+//     //disinvest(pkey);
+//     //invest(pkey);
+//     //stake(pkey);
+//    // transaction(pkey);
+//     //d_test(pkey);
+//    //d_call_test(pkey);
+//     debugL(Sutil::Format("{\"addr\":\"%s\"}", "hello"));
+//     free_prikey_handler(pkey);
+
+
+    
+
+
+//     return 0;
+
+// }
+int main(){
+    return 0;
+}
